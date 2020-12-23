@@ -126,7 +126,7 @@ class TestServer(unittest.TestCase):
             "550 File not found or access denied.\r\n",
         )
         self.assertEqual(
-            handleRETR("helper_file.txt"),
+            handleRETR("./__tests__/file0"),
             "425 Can not open data connection.\r\n",
         )
 

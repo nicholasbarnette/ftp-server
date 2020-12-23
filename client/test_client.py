@@ -209,9 +209,10 @@ class TestClientConnected(unittest.TestCase):
 
     def tearDown(self):
         try:
-            self.server.kill()
-        except Exception:
-            pass
+            self.server.terminate()
+            self.server.wait()
+        except Exception as e:
+            print(e)
 
     def testParseCommand(self):
         self.assertEqual(

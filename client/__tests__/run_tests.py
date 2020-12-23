@@ -1,4 +1,3 @@
-import os
 import subprocess
 import time
 import difflib
@@ -46,12 +45,22 @@ def main():
             print("Running test [client/%s]: %s" % (test["name"], test["description"]))
             data = client.communicate(input=test["input"].encode())[0]
             dif = _unidiff_output(test["output"], data.decode())
+            fail = False
+            if "callback" in test:
+                res = test["callback"]["cb"](test["callback"]["parameter"])
+                if res != "":
+                    fail = True
+                    print(res)
+
             if len(dif) > 0:
-                failed += 1
+                fail = True
                 print(
                     "Error in [client/%s]: %s\n%s"
                     % (test["description"], test["output"], dif)
                 )
+
+            if fail:
+                failed += 1
         print("\n")
 
     except Exception as e:
@@ -59,6 +68,8 @@ def main():
     finally:
         if failed > 0:
             print("%d tests failed" % failed)
+        else:
+            print("All tests have succeeded.")
 
         print("Cleaning up...")
         client.kill()

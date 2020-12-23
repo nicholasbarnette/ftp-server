@@ -1,6 +1,8 @@
 import sys
 import re
 import socket
+import os
+import shutil
 from utils import (
     COMMANDS,
     validateCommand,
@@ -131,7 +133,11 @@ def parseCommand(values):
             fileSize = bytes2number(fileSize)
 
             # Write File
-            fp = open("retr_files/file" + str(FILE_NUMBER), "wb")
+            fileDirectory = os.path.join(os.path.dirname(__file__), "retr_file")
+            if not os.path.exists(fileDirectory):
+                os.makedirs(fileDirectory)
+
+            fp = open(os.path.join(fileDirectory, "file" + str(FILE_NUMBER)), "wb")
             currentSize = 0
             while currentSize < int(fileSize):
                 data = dataConnection.recv(1024)
@@ -281,6 +287,14 @@ def main():
 
     global PORT
     PORT = int(sys.argv[1])
+
+    # Clean out the retr_files directory
+    try:
+        retrFiles = os.path.join(os.path.dirname(__file__), "retr_file")
+        if os.path.exists(retrFiles):
+            shutil.rmtree(retrFiles)
+    except Exception as e:
+        pass
 
     for i in sys.stdin:
 
