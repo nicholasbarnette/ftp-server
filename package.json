@@ -1,0 +1,21 @@
+{
+  "name": "ftp-server",
+  "version": "1.0.0",
+  "description": "A simple file transfer protocol service.",
+  "scripts": {
+    "test": "npm run unit:client && npm run unit:server && npm run integration:client",
+    "unit:client": "cd ./client && python -m unittest -b test_client.py",
+    "integration:client": "python ./client/__tests__/run_tests.py",
+    "unit:server": "cd ./server && python -m unittest -b test_server.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasbarnette/ftp-server.git"
+  },
+  "author": "Nicholas Barnette",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/nicholasbarnette/ftp-server/issues"
+  },
+  "homepage": "https://github.com/nicholasbarnette/ftp-server#readme"
+}
