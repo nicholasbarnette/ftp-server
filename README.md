@@ -32,8 +32,6 @@ python ./server/index.py 9000
 The supported commands are defined below.
 
 ```sh
-"USER", "PASS", "TYPE", "SYST", "NOOP", "QUIT", "PORT", "RETR"
-
 # User identifier (any user is valid right now)
 USER <user>
 
